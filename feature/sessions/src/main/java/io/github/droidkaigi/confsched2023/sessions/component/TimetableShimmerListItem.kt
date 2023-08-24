@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
@@ -69,13 +73,13 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
 
 // ** check this **
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
-// @MultiThemePreviews
-// @MultiLanguagePreviews
-// @Composable
-// fun TimetableShimmerListItemPreview() {
-//    KaigiTheme {
-//        Surface {
-//            TimetableShimmerListItem()
-//        }
-//    }
-// }
+ @MultiThemePreviews
+ @MultiLanguagePreviews
+ @Composable
+ fun TimetableShimmerListItemPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableShimmerListItem()
+        }
+    }
+ }
