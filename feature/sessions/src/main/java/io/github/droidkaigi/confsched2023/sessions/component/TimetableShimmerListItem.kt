@@ -67,6 +67,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
     }
 }
 
+// test
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
 // @MultiThemePreviews
 // @MultiLanguagePreviews
