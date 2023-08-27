@@ -15,10 +15,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.valentinilk.shimmer.Shimmer
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
@@ -41,7 +44,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .shimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             ) {}
         }
@@ -53,7 +56,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .shimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             ) {}
             Spacer(modifier = Modifier.size(10.dp))
@@ -62,7 +65,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    .shimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
@@ -71,15 +74,23 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
     }
 }
 
-// ** check this **
+// This is an extension function for verification.
+private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier = composed {
+    if (LocalInspectionMode.current.not()) {
+        shimmer(customShimmer)
+    } else {
+        this
+    }
+}
+
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
- @MultiThemePreviews
- @MultiLanguagePreviews
- @Composable
- fun TimetableShimmerListItemPreview() {
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableShimmerListItemPreview() {
     KaigiTheme {
         Surface {
             TimetableShimmerListItem()
         }
     }
- }
+}
