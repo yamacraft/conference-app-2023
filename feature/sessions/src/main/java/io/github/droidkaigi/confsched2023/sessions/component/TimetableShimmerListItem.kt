@@ -31,7 +31,7 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    //val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
     ) {
@@ -41,10 +41,10 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
             Box(
                 modifier = Modifier
                     .height(50.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
                     //.runSimmer(shimmerInstance)
-                    .background(Color.LightGray),
-            ) {}
+                    //.background(Color.LightGray),
+            )
         }
         Spacer(modifier = Modifier.size(12.dp))
         Row {
@@ -53,10 +53,10 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(40.dp)
                     .width(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(12.dp)),
                     //.runSimmer(shimmerInstance)
-                    .background(Color.LightGray),
-            ) {}
+                    //.background(Color.LightGray),
+            )
             Spacer(modifier = Modifier.size(10.dp))
             //  Shimmer effect on bottom(right)
             Box(
@@ -64,7 +64,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(32.dp)
                     .width(80.dp)
                     //.runSimmer(shimmerInstance)
-                    .background(Color.LightGray),
+                    //.background(Color.LightGray),
             )
         }
         Spacer(modifier = Modifier.size(15.dp))
