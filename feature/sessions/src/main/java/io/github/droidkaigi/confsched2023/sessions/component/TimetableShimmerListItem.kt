@@ -15,10 +15,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.Shimmer
@@ -75,12 +73,15 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
 }
 
 // This is an extension function for verification.
-private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier = composed {
-    if (LocalInspectionMode.current.not()) {
+private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier =
+    if (isRobolectricTest().not()) {
         shimmer(customShimmer)
     } else {
         this
     }
+
+private fun isRobolectricTest(): Boolean {
+    return System.getProperty("robolectric.build.system.resource") != null
 }
 
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
