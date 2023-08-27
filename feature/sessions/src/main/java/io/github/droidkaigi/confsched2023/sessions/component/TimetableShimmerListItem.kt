@@ -42,7 +42,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .runSimmer(shimmerInstance)
+                    //.runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             ) {}
         }
@@ -54,7 +54,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .runSimmer(shimmerInstance)
+                    //.runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             ) {}
             Spacer(modifier = Modifier.size(10.dp))
@@ -63,7 +63,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    .runSimmer(shimmerInstance)
+                    //.runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
