@@ -30,7 +30,10 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
-fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
+fun TimetableShimmerListItem(
+    modifier: Modifier = Modifier,
+    isPreview: Boolean = false,
+) {
     val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
@@ -42,7 +45,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .runSimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance, isPreview)
                     .background(Color.LightGray),
             ) {}
         }
@@ -54,7 +57,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .runSimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance, isPreview)
                     .background(Color.LightGray),
             ) {}
             Spacer(modifier = Modifier.size(10.dp))
@@ -63,7 +66,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    .runSimmer(shimmerInstance)
+                    .runSimmer(shimmerInstance, isPreview)
                     .background(Color.LightGray),
             )
         }
@@ -73,16 +76,15 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
 }
 
 // This is an extension function for verification.
-private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier =
-    if (isRobolectricTest().not()) {
+private fun Modifier.runSimmer(
+    customShimmer: Shimmer? = null,
+    isPreview: Boolean = false,
+): Modifier =
+    if (isPreview.not()) {
         shimmer(customShimmer)
     } else {
         this
     }
-
-private fun isRobolectricTest(): Boolean {
-    return System.getProperty("robolectric.build.system.resource") != null
-}
 
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
 @MultiThemePreviews
@@ -91,7 +93,7 @@ private fun isRobolectricTest(): Boolean {
 fun TimetableShimmerListItemPreview() {
     KaigiTheme {
         Surface {
-            TimetableShimmerListItem()
+            TimetableShimmerListItem(isPreview = true)
         }
     }
 }
