@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.valentinilk.shimmer.Shimmer
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
@@ -31,10 +30,10 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = if (isRobolectric()) {
-        null
-    } else {
+    val shimmerInstance = if (isRobolectric().not()) {
         rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    } else {
+        null
     }
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
@@ -51,8 +50,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                             shimmer(shimmerInstance)
                         } ?: this
                     }
-                    // .shimmer(shimmerInstance)
-                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
@@ -69,8 +66,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                             shimmer(shimmerInstance)
                         } ?: this
                     }
-                    // .shimmer(shimmerInstance)
-                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
             Spacer(modifier = Modifier.size(10.dp))
@@ -84,8 +79,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                             shimmer(shimmerInstance)
                         } ?: this
                     }
-                    // .shimmer(shimmerInstance)
-                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
@@ -94,24 +87,16 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
     }
 }
 
-// This is an extension function for verification.
 private fun isRobolectric(): Boolean {
+    @Suppress("SwallowedException")
     return try {
-        val robolectricClass = Class.forName("org.robolectric.Robolectric")
+        Class.forName("org.robolectric.Robolectric")
         true
     } catch (e: ClassNotFoundException) {
         false
     }
 }
 
-private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier =
-    if (System.getProperty("robolectric.buildSystem") == null) {
-        shimmer(customShimmer)
-    } else {
-        this
-    }
-
-// TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
 @MultiThemePreviews
 @MultiLanguagePreviews
 @Composable
