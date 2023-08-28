@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.Shimmer
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
@@ -29,7 +31,7 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    //val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
     ) {
