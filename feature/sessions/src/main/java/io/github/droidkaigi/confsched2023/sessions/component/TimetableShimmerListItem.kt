@@ -31,7 +31,11 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    val shimmerInstance = if (System.getProperty("robolectric.buildSystem") == null) {
+        rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    } else {
+        null
+    }
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
     ) {
@@ -42,8 +46,13 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    //.shimmer(shimmerInstance)
-                    //.runSimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            this.shimmer(shimmerInstance)
+                        } ?: this
+                    }
+                    // .shimmer(shimmerInstance)
+                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
@@ -55,8 +64,14 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    //.shimmer(shimmerInstance)
-                    //.runSimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            this.shimmer(shimmerInstance)
+                        } ?: this
+                    }
+                    // .shimmer(shimmerInstance)
+                    // .shimmer(shimmerInstance)
+                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
             Spacer(modifier = Modifier.size(10.dp))
@@ -65,8 +80,14 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    //.shimmer(shimmerInstance)
-                    //.runSimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            this.shimmer(shimmerInstance)
+                        } ?: this
+                    }
+                    // .shimmer(shimmerInstance)
+                    // .shimmer(shimmerInstance)
+                    // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
             )
         }
