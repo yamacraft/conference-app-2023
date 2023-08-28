@@ -32,7 +32,7 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
     val shimmerInstance = if (isRobolectric()) {
-        throw RuntimeException("The process is to check for errors.")
+        null
     } else {
         rememberShimmer(shimmerBounds = ShimmerBounds.View)
     }
@@ -46,6 +46,11 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
@@ -59,7 +64,11 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    // .shimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
@@ -70,7 +79,11 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    // .shimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
