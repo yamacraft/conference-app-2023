@@ -31,10 +31,10 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = if (System.getProperty("robolectric.buildSystem") == null) {
-        rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    val shimmerInstance = if (isRobolectric()) {
+        throw RuntimeException("The process is to check for errors.")
     } else {
-        null
+        rememberShimmer(shimmerBounds = ShimmerBounds.View)
     }
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
@@ -46,11 +46,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .run {
-                        shimmerInstance?.let {
-                            this.shimmer(shimmerInstance)
-                        } ?: this
-                    }
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
                     .background(Color.LightGray),
@@ -64,11 +59,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .run {
-                        shimmerInstance?.let {
-                            this.shimmer(shimmerInstance)
-                        } ?: this
-                    }
                     // .shimmer(shimmerInstance)
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
@@ -80,11 +70,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    .run {
-                        shimmerInstance?.let {
-                            this.shimmer(shimmerInstance)
-                        } ?: this
-                    }
                     // .shimmer(shimmerInstance)
                     // .shimmer(shimmerInstance)
                     // .runSimmer(shimmerInstance)
@@ -97,6 +82,15 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
 }
 
 // This is an extension function for verification.
+private fun isRobolectric(): Boolean {
+    return try {
+        val robolectricClass = Class.forName("org.robolectric.Robolectric")
+        true
+    } catch (e: ClassNotFoundException) {
+        false
+    }
+}
+
 private fun Modifier.runSimmer(customShimmer: Shimmer? = null): Modifier =
     if (System.getProperty("robolectric.buildSystem") == null) {
         shimmer(customShimmer)
